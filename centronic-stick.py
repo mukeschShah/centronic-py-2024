@@ -10,17 +10,19 @@ import serial  # pyserial module required
 import time
 import re
 import enum
+import fcntl
 
 # <STX> and <ETX> for every single code being send
 STX = b'\x02'
 ETX = b'\x03'
 
 DEFAULT_DEVICE_NAME = '/dev/serial/by-id/usb-BECKER-ANTRIEBE_GmbH_CDC_RS232_v125_Centronic-if00'
-NUMBER_FILE = "centronic-stick.num" # (deprecated) previously used to store increment counter
-CODE_PREFIX = "0000000002010B"  # some code prefix 0-23 (24 chars) followed by the increment
-CODE_SUFFIX = "000000" # some code suffix right after the increment
-CODE_21 = "021" # some code "021" right after the unit ids
-CODE_REMOTE = "01" # centronic remote control used "02" while contralControl seem to use "01"
+LOCK_FILE_NAME = '/tmp/centronic-stick.lock'
+NUMBER_FILE = 'centronic-stick.num' # (deprecated) previously used to store increment counter
+CODE_PREFIX = '0000000002010B'  # some code prefix 0-23 (24 chars) followed by the increment
+CODE_SUFFIX = '000000' # some code suffix right after the increment
+CODE_21 = '021' # some code "021" right after the unit ids
+CODE_REMOTE = '01' # centronic remote control used "02" while contralControl seem to use "01"
 
 COMMAND_HALT = 0x10 # stop 
 COMMAND_UP = 0x20 # move up
@@ -393,17 +395,17 @@ def main(argv):
         opts, _ = getopt.getopt(
             argv, "hlits", ["checksum=", "device=", "channel=", "send=", "mod=", "add=", "remove="])
 
-        if len(opts) < 1:
+        if len(opts) < 1 or (len(opts) > 0 and opts[0][0] in ['-h']):
             showhelp()
             return
 
-        with Database() as db:
+        # lock file for concurrency
+        fp = open(LOCK_FILE_NAME, 'w')
+        fcntl.lockf(fp, fcntl.LOCK_EX)
 
+        with Database() as db:
             for (opt, arg) in opts:
-                if opt == '-h':
-                    showhelp()
-                    return
-                elif opt in ['-s']:
+                if opt in ['-s']:
                     mode |= Modes.Stat
                 elif opt in ('-t'):
                     mode |= Modes.Test
@@ -444,6 +446,10 @@ def main(argv):
                 stick.listen()
             elif mode == Modes.Send:
                 stick.send(argument, channel, test)
+        
+        # free lockfile
+        fcntl.lockf(fp, fcntl.LOCK_UN)
+        os.remove(LOCK_FILE_NAME) if os.path.exists(LOCK_FILE_NAME) else None
 
     except getopt.GetoptError:
         sys.exit(2)
