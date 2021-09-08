@@ -277,6 +277,12 @@ class USBStick:
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             # set unit as configured
             unit[2] = 1
+        elif cmd == "TRAINR":
+            codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
+            unit[1] += 1
+            codes.append(self.generatecode(channel, unit, 0x00))
+            # set unit as configured
+            unit[2] = 1
         elif cmd == "REMOVE":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
