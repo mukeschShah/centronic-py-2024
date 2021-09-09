@@ -39,7 +39,7 @@ For those who are familar with the installation routine, the following steps are
 
 To make recievers listening to the Centronic USB Stick, the "master sender" is required to add additional senders. The "master sender" can either be the wall-mounted transmitter or a remote.
 
-To program another sender, please follow the beliw instruction
+To program another sender, please follow the below instruction
 
 **1) Press and hold the programming button on the MASTER SENDER for ~3 seconds**
 The receiver should confirm with a single "Klack" noise
