@@ -274,26 +274,19 @@ class USBStick:
         elif cmd == "TRAIN":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
-            codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
-            # set unit as configured
-            unit[2] = 1
-        elif cmd == "TRAIN2019":
-            codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
-            unit[1] += 1
             codes.append(self.generatecode(channel, unit, 0x00))
             unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
-            unit[1] += 1
-            codes.append(self.generatecode(channel, unit, 0x00))
+            #unit[1] += 1
             # set unit as configured
             unit[2] = 1
         elif cmd == "REMOVE":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
+            codes.append(self.generatecode(channel, unit, 0x00))
+            unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
-            #codes.append(self.generatecode(channel, unit, COMMAND_PAIR3))
-            #unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR4))
         elif cmd == "TRAINMASTER":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR))
