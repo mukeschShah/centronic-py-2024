@@ -287,6 +287,8 @@ class USBStick:
             unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
+            codes.append(self.generatecode(channel, unit, COMMAND_PAIR3))
+            unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR4))
         elif cmd == "TRAINMASTER":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR))
