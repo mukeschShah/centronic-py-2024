@@ -64,7 +64,7 @@ def showhelp():
     print("   --add <modifier>: used to add a db entry")
     print("    --remove <code>: used to remove an entry from db")
     print('')
-    print('Version 0.8 - Authors: ole1986, toolking')
+    print('Version 0.9 - Authors: ole1986, toolking')
 
 class Database:
 
