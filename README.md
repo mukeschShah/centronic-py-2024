@@ -20,8 +20,6 @@ It is necessary to own such USB device and to PAIR it first, before using comman
    --mod <modifier>: used to manipulate the db entries
    --add <modifier>: used to add a db entry
     --remove <code>: used to remove an entry from db
-
-Version 0.8 - Authors: ole1986, toolking
 ```
 
 ### INSTALLATION

@@ -64,7 +64,7 @@ def showhelp():
     print("   --add <modifier>: used to add a db entry")
     print("    --remove <code>: used to remove an entry from db")
     print('')
-    print('Version 0.8 - Authors: ole1986, toolking')
+    print('Version 0.9 - Authors: ole1986, toolking')
 
 class Database:
 
@@ -274,11 +274,16 @@ class USBStick:
         elif cmd == "TRAIN":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
+            codes.append(self.generatecode(channel, unit, 0x00))
+            unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
+            #unit[1] += 1
             # set unit as configured
             unit[2] = 1
         elif cmd == "REMOVE":
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
+            unit[1] += 1
+            codes.append(self.generatecode(channel, unit, 0x00))
             unit[1] += 1
             codes.append(self.generatecode(channel, unit, COMMAND_PAIR2))
             unit[1] += 1
