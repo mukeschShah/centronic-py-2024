@@ -1,3 +1,7 @@
+**0.9**
+
+- Fixed TRAIN and REMOVE command for newer roof shutters (2019) #28 (#24)
+
 **0.8**
 
 - slightly improved the amount of codes being sent (since we do not need to simulate button release)
