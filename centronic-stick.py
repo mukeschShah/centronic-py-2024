@@ -16,7 +16,10 @@ import fcntl
 STX = b'\x02'
 ETX = b'\x03'
 
-DEFAULT_DEVICE_NAME = '/dev/serial/by-id/usb-BECKER-ANTRIEBE_GmbH_CDC_RS232_v125_Centronic-if00'
+# DEFAULT_DEVICE_NAME = '/dev/serial/by-id/usb-BECKER-ANTRIEBE_GmbH_CDC_RS232_v125_Centronic-if00'
+# Capitalisation is important here
+DEFAULT_DEVICE_NAME = '/dev/serial/by-id/usb-Becker-Antriebe_GmbH_CDC_RS232_v125_Centronic-if00'
+
 LOCK_FILE_NAME = '/tmp/centronic-stick.lock'
 NUMBER_FILE = 'centronic-stick.num' # (deprecated) previously used to store increment counter
 CODE_PREFIX = '0000000002010B'  # some code prefix 0-23 (24 chars) followed by the increment
